@@ -6,12 +6,12 @@
 
 ![](https://yazeedb.com/media/fastest-way-break-into-web/todo-mvc-1.png)
 
-1. Add todos
-2. Edit todos by double-clicking
-3. Delete todos
-4. Check/Uncheck todos
+1. Add todos :white_check_mark:
+2. Edit todos by double-clicking :white_check_mark:
+3. Delete todos :white_check_mark:
+4. Check/Uncheck todos :white_check_mark:
 5. Filters for complete/active todos
-6. Counts how many todos are left
+6. Counts how many todos are left :white_check_mark:
 7. Todos are saved to LocalStorage
 
 Code a pixel-perfect copy in HTML/CSS, then implement the functionality in JavaScript.

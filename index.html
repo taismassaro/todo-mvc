@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <!-- <script src="https://kit.fontawesome.com/4647f9cbe3.js"></script> -->
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i&display=swap"
       rel="stylesheet"
@@ -12,15 +13,24 @@
   <body>
     <header><h1>to.dos</h1></header>
     <main>
-      <div id="dropdown"></div>
-      <input
-        type="text"
-        name="todo-item"
-        placeholder="What needs to be done?"
-      />
-
+      <div id="header">
+        <div id="select-all">▾</div>
+        <input
+          type="text"
+          name="todo-item"
+          placeholder="What needs to be done?"
+        />
+      </div>
       <div id="list"></div>
-      <div id="status-bar"></div>
+      <div id="status-bar">
+        <div class="count"></div>
+        <div id="filters">
+          <div class="active">All</div>
+          <div>Active</div>
+          <div>Completed</div>
+        </div>
+        <div id="clear">Clear completed</div>
+      </div>
     </main>
     <footer></footer>
   </body>

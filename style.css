@@ -1,10 +1,11 @@
 * {
   box-sizing: border-box;
-  font-size: 20px;
 }
 body {
   background: rgb(229, 240, 244);
   font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+
   color: rgb(202, 220, 224);
   display: flex;
   flex-direction: column;
@@ -16,31 +17,43 @@ h1 {
   margin-bottom: 20px;
 }
 main {
-  width: 500px;
+  width: 600px;
   background: #fff;
   box-shadow: 0px 3px 6px rgb(109, 137, 145);
-  display: grid;
-  grid-template: 60px/ 60px 1fr 60px;
-  grid-template-areas:
-    "dropdown input input"
-    "list list list"
-    "status status status";
+  display: flex;
+  flex-direction: column;
 }
-#dropdown {
+#header {
+  display: flex;
+}
+#select-all {
   width: 60px;
   height: 60px;
   margin-right: 20px;
   background: #fff;
-  grid-area: dropdown;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+.fa-caret-down {
+  margin-left: 10px;
+  font-size: 1.2rem;
 }
 input {
   width: 100%;
   border: 0;
   font-family: "Montserrat", sans-serif;
+  font-size: 1em;
   font-weight: 300;
   line-height: 1.4;
   outline: none;
-  grid-area: input;
+}
+.todo {
+  width: 100%;
+}
+input[name="edit"] {
+  border-bottom: 1px solid rgb(202, 220, 224);
 }
 [placeholder]::-webkit-input-placeholder {
   color: rgb(202, 220, 224);
@@ -48,26 +61,100 @@ input {
 }
 #list {
   border-top: 1px solid rgb(109, 137, 145);
-  display: grid;
-  grid-template-columns: 60px 1fr 60px;
-  grid-template-areas: "check item delete";
-  grid-area: list;
-  padding: 15px;
+  display: none;
 }
 .item {
-  grid-area: item;
+  padding: 15px;
+  height: 60px;
+  display: flex;
+  font-weight: 300;
   line-height: 1.4;
+  position: relative;
+  border-bottom: 1px solid rgb(202, 220, 224);
+
+  color: rgb(109, 137, 145);
+}
+.item:hover .delete {
+  opacity: 1;
 }
 .check {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   border: 1px solid rgb(109, 137, 145);
-  grid-area: check;
-  margin-left: 10px;
-  /* justify-self: center; */
-  align-self: center;
+  margin-right: 25px;
+}
+.completed {
+  color: rgb(202, 220, 224);
+  text-decoration: line-through;
+}
+.delete {
+  margin-right: 15px;
+  position: absolute;
+  right: 0;
+  opacity: 0;
+}
+.delete:hover {
+  cursor: pointer;
 }
 #status-bar {
-  grid-area: status;
+  border-top: 1px solid rgb(109, 137, 145);
+  font-weight: 300;
+  padding: 10px 20px;
+  color: rgb(109, 137, 145);
+  position: relative;
+  font-size: 12px;
+  display: none;
+}
+.count {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#filters {
+  display: flex;
+  justify-content: center;
+}
+#filters div {
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+}
+#filters div:hover {
+  border: 1px solid rgb(202, 220, 224);
+  cursor: pointer;
+}
+#filters .active {
+  border: 1px solid rgb(109, 137, 145);
+}
+#clear {
+  width: 100%;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translate(-20%, -50%);
+  left: 100%;
+  visibility: hidden;
+}
+#clear:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:after {
+  line-height: 1.5em;
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  margin-left: -3px;
+  border: 1px solid rgb(109, 137, 145);
+  background: #fff;
+  border-radius: 50%;
+}
+
+input[type="checkbox"]:checked:after {
+  background: rgb(109, 137, 145);
 }
