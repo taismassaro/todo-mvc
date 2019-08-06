@@ -169,8 +169,10 @@
     let toDo = input.val();
     showList();
 
+    localStorage.setItem(toDo, false);
+
     list.append(`<div class="item">
-      <input type="checkbox" class="check"><label></label>
+      <input type="checkbox" class="check">
       <div class="todo">${toDo}</div>
       <div class="delete">
         ✕
@@ -194,6 +196,8 @@
   }
 
   function addCompleted(target) {
+    console.log(target, target.nextElementSibling.innerText);
+    localStorage.setItem(target.nextElementSibling.innerText, true);
     $(target)
       .closest(".item")
       .addClass("completed");
@@ -202,6 +206,8 @@
   }
 
   function removeCompleted(target) {
+    localStorage.setItem(target.nextElementSibling.innerText, false);
+
     $(target)
       .closest(".item")
       .removeClass("completed");
