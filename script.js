@@ -96,37 +96,31 @@
   });
 
   // select/unselect all
-  // select.on("click", function() {
-  //   $(".item").each(function() {
-  //     let checkbox = this.firstElementChild;
-  //
-  //     if (checkbox.checked === true) {
-  //       count++;
-  //       $(checkbox).prop("checked", false);
-  //       removeCompleted(checkbox);
-  //     }
-  //     else {
-  //       count--;
-  //
-  //       $(checkbox).prop("checked", true);
-  //       addCompleted(checkbox);
-  //     }
-  //   });
-  //   updateTaskCounter();
-  // });
-
   select.on("click", function() {
+    let check = [];
+
     $(".item").each(function() {
       let checkbox = this.firstElementChild;
-      let check = [];
       if (checkbox.checked === true) {
         check.push("checked");
       } else {
         check.push("unchecked");
       }
     });
+    if (check.includes("checked") || !check.includes("checked")) {
+      $("input[type=checkbox]").prop("checked", true);
+      addCompleted($("input[type=checkbox]"));
+      count = 0;
+    }
+    if (!check.includes("unchecked")) {
+      console.log("Check:", check);
+      $("input[type=checkbox]").prop("checked", false);
+      removeCompleted($("input[type=checkbox]"));
+
+      count = check.length;
+    }
     console.log(check);
-    // updateTaskCounter();
+    updateTaskCounter();
   });
 
   // clear completed
