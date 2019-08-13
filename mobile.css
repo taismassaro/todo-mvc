@@ -102,7 +102,7 @@ input[type="checkbox"]:checked::before {
   font-weight: 700;
   left: 2px;
   top: -14px;
-  content: "\02143";
+  /* content: "\02143"; */
   transform: rotate(40deg);
   color: rgb(115, 208, 138);
 }
@@ -119,9 +119,9 @@ input[type="checkbox"]:after {
   background: #fff;
   border-radius: 50%;
 }
-/* input[type="checkbox"]:checked:after {
-   background: rgb(109, 137, 145);
-} */
+input[type="checkbox"]:checked:after {
+  background: rgb(109, 137, 145);
+}
 .todo {
   width: 100%;
 }
@@ -224,5 +224,13 @@ input[type="checkbox"]:after {
 @media only screen and (min-width: 620px) {
   main {
     max-width: 600px;
+  }
+  input[type="checkbox"]:checked::before {
+    content: "\02143";
+    transform: rotate(40deg);
+    color: rgb(115, 208, 138);
+  }
+  input[type="checkbox"]:checked:after {
+    background: #fff;
   }
 }
