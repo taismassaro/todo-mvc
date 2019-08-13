@@ -17,63 +17,69 @@
     }
   });
 
+  // localStorage
+  let storage = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    let currentKey = localStorage.key(i);
+    let currentValue = localStorage.getItem(currentKey);
+    if (currentValue === "checked" || currentValue === "unchecked") {
+      count++;
+      console.log(currentKey);
+      storage[localStorage.key(i)] = currentValue;
+      // count = Object.keys(storage).length;
+      if (currentValue === "checked") {
+        list.append(`<div class="item completed" >
+              <input type="checkbox" class="check" checked>
+              <div class="todo">${currentKey}</div>
+              <div class="delete">
+                ✕
+              </div>
+            </div>`);
+        console.log(count);
+        count--;
+        clear.css({ visibility: "visible" });
+      } else {
+        list.append(`<div class="item">
+            <input type="checkbox" class="check">
+            <div class="todo">${currentKey}</div>
+            <div class="delete">
+              ✕
+            </div>
+          </div>`);
+      }
+    }
+  }
+  // count = localStorage.getItem("taskCounter");
+  updateTaskCounter();
+  if (count > 0) {
+    showList();
+  }
+  console.log(storage);
+
   // edit to-dos by double-clicking
   list.on("dblclick", ".todo", function(event) {
     let target = event.currentTarget;
-    let value = target.innerHTML;
+    let value = $(target).html();
 
-    $(target).html(`<input name="edit" type="text" value="${value}">`);
+    console.log(value);
 
-    // puts cursor at the end of input field
-    $("input[name=edit]")
-      .putCursorAtEnd()
-      .on("focus", function() {
-        $("input[name=edit]").putCursorAtEnd();
-      });
+    target.setAttribute("contentEditable", true);
+    target.focus();
 
-    $(target).on("keyup", function(event) {
+    $(target).on("keydown", function(event) {
       if (event.keyCode == 13) {
-        let newValue = $("input[name=edit]").val();
-        $(target).html(newValue);
+        target.setAttribute("contentEditable", false);
+      }
+    });
+    $(target).on("keydown", function(event) {
+      if (event.keyCode == 27) {
+        target.setAttribute("innerHTML", value);
+
+        target.setAttribute("contentEditable", false);
       }
     });
     event.stopPropagation;
   });
-
-  /////
-  // Move Cursor To End of Input (CSS Tricks)
-  jQuery.fn.putCursorAtEnd = function() {
-    return this.each(function() {
-      // Cache references
-      var $el = $(this),
-        el = this;
-
-      // Only focus if input isn't already
-      if (!$el.is(":focus")) {
-        $el.focus();
-      }
-
-      // If this function exists... (IE 9+)
-      if (el.setSelectionRange) {
-        // Double the length because Opera is inconsistent about whether a carriage return is one character or two.
-        var len = $el.val().length * 2;
-
-        // Timeout seems to be required for Blink
-        setTimeout(function() {
-          el.setSelectionRange(len, len);
-        }, 1);
-      } else {
-        // As a fallback, replace the contents with itself
-        // Doesn't work in Chrome, but Chrome supports setSelectionRange
-        $el.val($el.val());
-      }
-
-      // Scroll to the bottom, in case we're in a tall textarea
-      // (Necessary for Firefox and Chrome)
-      this.scrollTop = 999999;
-    });
-  };
-  /////
 
   // check/uncheck to-dos
   list.on("click", ".check", function(event) {
@@ -90,27 +96,52 @@
   });
 
   // select/unselect all
+  // select.on("click", function() {
+  //   $(".item").each(function() {
+  //     let checkbox = this.firstElementChild;
+  //
+  //     if (checkbox.checked === true) {
+  //       count++;
+  //       $(checkbox).prop("checked", false);
+  //       removeCompleted(checkbox);
+  //     }
+  //     else {
+  //       count--;
+  //
+  //       $(checkbox).prop("checked", true);
+  //       addCompleted(checkbox);
+  //     }
+  //   });
+  //   updateTaskCounter();
+  // });
+
   select.on("click", function() {
     $(".item").each(function() {
       let checkbox = this.firstElementChild;
-
+      let check = [];
       if (checkbox.checked === true) {
-        count++;
-        $(checkbox).prop("checked", false);
-        removeCompleted(checkbox);
+        check.push("checked");
       } else {
-        count--;
-
-        $(checkbox).prop("checked", true);
-        addCompleted(checkbox);
+        check.push("unchecked");
       }
     });
-    updateTaskCounter();
+    console.log(check);
+    // updateTaskCounter();
   });
 
   // clear completed
   clear.on("click", function(event) {
     $(".completed").each(function() {
+      localStorage.removeItem(
+        $(this)
+          .find(".todo")
+          .html()
+      );
+      console.log(
+        $(this)
+          .find(".todo")
+          .html()
+      );
       this.remove();
     });
     if (!$(".completed").length && count <= 0) {
@@ -120,11 +151,17 @@
 
   // delete to-dos
   list.on("click", ".delete", function(event) {
-    count--;
-
     let parent = $(event.currentTarget)
       .parent()
       .eq(0);
+
+    if (!parent.hasClass("completed")) {
+      count--;
+    }
+    localStorage.removeItem(
+      event.currentTarget.previousElementSibling.innerHTML
+    );
+    console.log(event.currentTarget.previousElementSibling.innerHTML);
     parent.remove();
 
     if ($(".item").length < 1) {
@@ -169,7 +206,8 @@
     let toDo = input.val();
     showList();
 
-    localStorage.setItem(toDo, false);
+    // localStorage.toDos = {};
+    // localStorage.toDos.setItem(toDo, "unchecked");
 
     list.append(`<div class="item">
       <input type="checkbox" class="check">
@@ -184,7 +222,7 @@
 
   function showList() {
     list.css({ display: "block" });
-    status.css({ display: "block" });
+    status.css({ display: "grid" });
     select.css({ visibility: "visible" });
   }
 
@@ -197,7 +235,7 @@
 
   function addCompleted(target) {
     console.log(target, target.nextElementSibling.innerText);
-    localStorage.setItem(target.nextElementSibling.innerText, true);
+    localStorage.setItem(target.nextElementSibling.innerText, "checked");
     $(target)
       .closest(".item")
       .addClass("completed");
@@ -206,7 +244,7 @@
   }
 
   function removeCompleted(target) {
-    localStorage.setItem(target.nextElementSibling.innerText, false);
+    localStorage.setItem(target.nextElementSibling.innerText, "unchecked");
 
     $(target)
       .closest(".item")
@@ -218,6 +256,7 @@
   }
 
   function updateTaskCounter() {
+    // localStorage.setItem("taskCounter", count);
     console.log(count);
     if (count === 1) {
       $(".count").html(`${count} task left`);
