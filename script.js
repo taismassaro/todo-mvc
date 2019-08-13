@@ -18,43 +18,43 @@
   });
 
   // localStorage
-  let storage = {};
-  for (let i = 0; i < localStorage.length; i++) {
-    let currentKey = localStorage.key(i);
-    let currentValue = localStorage.getItem(currentKey);
-    if (currentValue === "checked" || currentValue === "unchecked") {
-      count++;
-      console.log(currentKey);
-      storage[localStorage.key(i)] = currentValue;
-      // count = Object.keys(storage).length;
-      if (currentValue === "checked") {
-        list.append(`<div class="item completed" >
-              <input type="checkbox" class="check" checked>
-              <div class="todo">${currentKey}</div>
-              <div class="delete">
-                ✕
-              </div>
-            </div>`);
-        console.log(count);
-        count--;
-        clear.css({ visibility: "visible" });
-      } else {
-        list.append(`<div class="item">
-            <input type="checkbox" class="check">
-            <div class="todo">${currentKey}</div>
-            <div class="delete">
-              ✕
-            </div>
-          </div>`);
-      }
-    }
-  }
+  // let storage = {};
+  // for (let i = 0; i < localStorage.length; i++) {
+  //   let currentKey = localStorage.key(i);
+  //   let currentValue = localStorage.getItem(currentKey);
+  //   if (currentValue === "checked" || currentValue === "unchecked") {
+  //     count++;
+  //     console.log(currentKey);
+  //     storage[localStorage.key(i)] = currentValue;
+  //     // count = Object.keys(storage).length;
+  //     if (currentValue === "checked") {
+  //       list.append(`<div class="item completed" >
+  //             <input type="checkbox" class="check" checked>
+  //             <div class="todo">${currentKey}</div>
+  //             <div class="delete">
+  //               ✕
+  //             </div>
+  //           </div>`);
+  //       console.log(count);
+  //       count--;
+  //       clear.css({ visibility: "visible" });
+  //     } else {
+  //       list.append(`<div class="item">
+  //           <input type="checkbox" class="check">
+  //           <div class="todo">${currentKey}</div>
+  //           <div class="delete">
+  //             ✕
+  //           </div>
+  //         </div>`);
+  //     }
+  //   }
+  // }
   // count = localStorage.getItem("taskCounter");
   updateTaskCounter();
   if (count > 0) {
     showList();
   }
-  console.log(storage);
+  // console.log(storage);
 
   // edit to-dos by double-clicking
   list.on("dblclick", ".todo", function(event) {
@@ -217,6 +217,13 @@
       </div>
     </div>`);
 
+    filters.find("div").removeClass("active");
+    filters
+      .find("div")
+      .eq(0)
+      .addClass("active");
+    list.find(".item").show();
+
     updateTaskCounter();
   }
 
@@ -234,8 +241,7 @@
   }
 
   function addCompleted(target) {
-    console.log(target, target.nextElementSibling.innerText);
-    localStorage.setItem(target.nextElementSibling.innerText, "checked");
+    // localStorage.setItem(target.nextElementSibling.innerText, "checked");
     $(target)
       .closest(".item")
       .addClass("completed");
@@ -244,7 +250,7 @@
   }
 
   function removeCompleted(target) {
-    localStorage.setItem(target.nextElementSibling.innerText, "unchecked");
+    // localStorage.setItem(target.nextElementSibling.innerText, "unchecked");
 
     $(target)
       .closest(".item")
