@@ -92,6 +92,8 @@
       count++;
       removeCompleted(target);
     }
+    console.log(filters.find("div").eq(1));
+
     updateTaskCounter();
   });
 
@@ -152,9 +154,9 @@
     if (!parent.hasClass("completed")) {
       count--;
     }
-    localStorage.removeItem(
-      event.currentTarget.previousElementSibling.innerHTML
-    );
+    // localStorage.removeItem(
+    //   event.currentTarget.previousElementSibling.innerHTML
+    // );
     console.log(event.currentTarget.previousElementSibling.innerHTML);
     parent.remove();
 
@@ -239,7 +241,14 @@
     $(target)
       .closest(".item")
       .addClass("completed");
-
+    if (
+      filters
+        .find("div")
+        .eq(1)
+        .hasClass("active")
+    ) {
+      list.find(".completed").hide();
+    }
     clear.css({ visibility: "visible" });
   }
 
@@ -249,7 +258,15 @@
     $(target)
       .closest(".item")
       .removeClass("completed");
-
+    if (
+      filters
+        .find("div")
+        .eq(2)
+        .hasClass("active")
+    ) {
+      list.find(".item").hide();
+      list.find(".completed").show();
+    }
     if ($(".completed").length < 1) {
       clear.css({ visibility: "hidden" });
     }
@@ -258,10 +275,12 @@
   function updateTaskCounter() {
     // localStorage.setItem("taskCounter", count);
     console.log(count);
-    if (count === 1) {
-      $(".count").html(`${count} task left`);
+    if (count === 0) {
+      $(".count").html(`You've done it all, congrats!`);
+    } else if (count === 1) {
+      $(".count").html(`${count} task to do`);
     } else {
-      $(".count").html(`${count} tasks left`);
+      $(".count").html(`${count} tasks to do`);
     }
   }
 })();

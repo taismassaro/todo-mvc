@@ -91,8 +91,22 @@ input {
   margin-right: 25px;
 }
 input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   transform: scale(0.5);
 }
+input[type="checkbox"]:checked::before {
+  position: absolute;
+  font-size: 32px;
+  font-weight: 700;
+  left: 2px;
+  top: -14px;
+  content: "\02143";
+  transform: rotate(40deg);
+  color: rgb(115, 208, 138);
+}
+
 input[type="checkbox"]:after {
   line-height: 1.5em;
   content: "";
@@ -105,9 +119,9 @@ input[type="checkbox"]:after {
   background: #fff;
   border-radius: 50%;
 }
-input[type="checkbox"]:checked:after {
-  background: rgb(109, 137, 145);
-}
+/* input[type="checkbox"]:checked:after {
+   background: rgb(109, 137, 145);
+} */
 .todo {
   width: 100%;
 }
@@ -120,6 +134,7 @@ input[type="checkbox"]:checked:after {
   position: absolute;
   right: 0;
   opacity: 0;
+  color: rgb(232, 125, 92);
 }
 .delete:hover {
   cursor: pointer;
