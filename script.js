@@ -17,44 +17,10 @@
     }
   });
 
-  // localStorage
-  // let storage = {};
-  // for (let i = 0; i < localStorage.length; i++) {
-  //   let currentKey = localStorage.key(i);
-  //   let currentValue = localStorage.getItem(currentKey);
-  //   if (currentValue === "checked" || currentValue === "unchecked") {
-  //     count++;
-  //     console.log(currentKey);
-  //     storage[localStorage.key(i)] = currentValue;
-  //     // count = Object.keys(storage).length;
-  //     if (currentValue === "checked") {
-  //       list.append(`<div class="item completed" >
-  //             <input type="checkbox" class="check" checked>
-  //             <div class="todo">${currentKey}</div>
-  //             <div class="delete">
-  //               ✕
-  //             </div>
-  //           </div>`);
-  //       console.log(count);
-  //       count--;
-  //       clear.css({ visibility: "visible" });
-  //     } else {
-  //       list.append(`<div class="item">
-  //           <input type="checkbox" class="check">
-  //           <div class="todo">${currentKey}</div>
-  //           <div class="delete">
-  //             ✕
-  //           </div>
-  //         </div>`);
-  //     }
-  //   }
-  // }
-  // count = localStorage.getItem("taskCounter");
   updateTaskCounter();
   if (count > 0) {
     showList();
   }
-  // console.log(storage);
 
   // edit to-dos by double-clicking
   list.on("dblclick", ".todo", function(event) {
@@ -78,7 +44,7 @@
         target.setAttribute("contentEditable", false);
       }
     });
-    event.stopPropagation;
+    event.stopPropagation();
   });
 
   // check/uncheck to-dos
