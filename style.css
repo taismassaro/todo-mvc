@@ -2,27 +2,22 @@
   box-sizing: border-box;
 }
 body {
-  /* background: rgb(229, 240, 244); */
+  margin: 0;
   background: #f2f3f3;
   font-family: "Montserrat", sans-serif;
   font-size: 20px;
-  /* color: #3c4143; */
   color: rgb(202, 220, 224);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 h1 {
   font-size: 4rem;
   font-weight: 300;
-  margin-bottom: 20px;
+  text-align: center;
 }
 main {
-  width: 600px;
+  margin: 0 auto;
+  width: 90%;
   background: #fff;
   box-shadow: 0px 3px 6px rgb(109, 137, 145);
-  display: flex;
-  flex-direction: column;
 }
 
 /* HEADER/INPUT */
@@ -33,8 +28,8 @@ main {
 #select-all {
   width: 60px;
   height: 60px;
-  margin-left: 3px;
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   background: #fff;
   display: flex;
   justify-content: center;
@@ -69,7 +64,6 @@ input {
   line-height: 1.4;
   position: relative;
   border-bottom: 1px solid rgb(202, 220, 224);
-
   color: rgb(109, 137, 145);
 }
 .item:hover .delete {
@@ -86,15 +80,31 @@ input {
   border: 1px solid rgb(109, 137, 145);
   margin-right: 25px;
 }
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transform: scale(0.5);
+}
+input[type="checkbox"]:checked::before {
+  position: absolute;
+  font-size: 32px;
+  font-weight: 700;
+  left: 2px;
+  top: -14px;
+  transform: rotate(40deg);
+  color: rgb(115, 208, 138);
+}
+
 input[type="checkbox"]:after {
   line-height: 1.5em;
   content: "";
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-top: 3px;
-  margin-left: -3px;
-  border: 1px solid rgb(109, 137, 145);
+  width: 45px;
+  height: 45px;
+  margin-top: -15px;
+  margin-left: -12px;
+  border: 2px solid rgb(109, 137, 145);
   background: #fff;
   border-radius: 50%;
 }
@@ -113,6 +123,7 @@ input[type="checkbox"]:checked:after {
   position: absolute;
   right: 0;
   opacity: 0;
+  color: rgb(232, 125, 92);
 }
 .delete:hover {
   cursor: pointer;
@@ -125,22 +136,34 @@ input[type="checkbox"]:checked:after {
   font-weight: 300;
   padding: 10px 20px;
   color: rgb(109, 137, 145);
-  position: relative;
   font-size: 12px;
   display: none;
+
+  grid-template: 2fr / repeat(2, 1fr);
+  grid-template-areas: "count clear" "filter filter";
+  grid-gap: 10px;
+}
+.status {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 .count {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  grid-area: count;
 }
 #filters {
+  grid-area: filter;
+  padding: 5px;
   display: flex;
   justify-content: center;
+  margin: 0 auto;
+  max-width: 50%;
 }
 #filters div {
+  display: inline-block;
   padding: 5px;
-  margin: 0 5px;
+  margin: 0 auto;
   border-radius: 5px;
   border: 1px solid #fff;
 }
@@ -152,12 +175,8 @@ input[type="checkbox"]:checked:after {
   border: 1px solid rgb(109, 137, 145);
 }
 #clear {
-  width: 100%;
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  transform: translate(-20%, -50%);
-  left: 100%;
+  grid-area: clear;
+  text-align: right;
   visibility: hidden;
 }
 #clear:hover {
@@ -167,11 +186,55 @@ input[type="checkbox"]:checked:after {
 
 /* WIDTH < 500 */
 
-@media only screen and (max-width: 500px) {
-  body {
-    width: 100%;
+@media only screen and (min-width: 500px) {
+  #status-bar {
+    grid-template: 1fr / repeat(3, 1fr);
+    grid-template-areas: "count filter clear";
   }
+  .count {
+    padding: 5px;
+  }
+  #filters {
+    padding: 0;
+  }
+  #clear {
+    padding: 5px;
+  }
+}
+footer {
+  margin-top: 40px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  color: rgb(109, 137, 145);
+}
+footer span {
+  font-size: 12px;
+  color: rgb(232, 125, 92);
+}
+footer a {
+  color: rgb(109, 137, 145);
+  text-decoration: none;
+}
+footer a:visited {
+  color: rgb(109, 137, 145);
+  text-decoration: none;
+}
+footer a:hover {
+  font-weight: 400;
+}
+
+@media only screen and (min-width: 620px) {
   main {
-    width: 80%;
+    max-width: 600px;
+  }
+  input[type="checkbox"]:checked::before {
+    content: "\02143";
+    transform: rotate(40deg);
+    color: rgb(115, 208, 138);
+  }
+  input[type="checkbox"]:checked:after {
+    background: #fff;
   }
 }

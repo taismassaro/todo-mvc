@@ -1,24 +1,28 @@
-# The Ultimate Beginner Project
+# Demo
 
-[https://yazeedb.com/posts/the-guaranteed-fastest-way-to-break-into-web-development](https://yazeedb.com/posts/the-guaranteed-fastest-way-to-break-into-web-development)
+[https://taismassaro.github.io/todo-mvc/](https://taismassaro.github.io/todo-mvc/)
 
-[Original TodoMVC](http://todomvc.com/examples/vanillajs/)
+# Overview
 
-![](https://yazeedb.com/media/fastest-way-break-into-web/todo-mvc-1.png)
+Mobile-friendly to-do list application based on [TodoMCV](http://todomvc.com), developed as a personal project to practice Javascript and CSS.
 
-1. Add todos :white_check_mark:
-2. Edit todos by double-clicking :white_check_mark:
-3. Delete todos :white_check_mark:
-4. Check/Uncheck todos :white_check_mark:
-5. Filters for complete/active todos :white_check_mark:
-6. Counts how many todos are left :white_check_mark:
-7. Todos are saved to LocalStorage :white_check_mark:
+# Features
 
-Code a pixel-perfect copy in HTML/CSS, then implement the functionality in JavaScript.
+- Add tasks
+- Edit tasks by double-clicking
+- Delete tasks
+- Mark tasks as done
+- Filter for completed/active tasks
+- Remove all completed tasks at once
+- Counter of remaining active tasks
 
-After that, pick something new or even a harder version TodoMVC.
+# Near future
 
+- New version using React.js
 - Allow users to sign in with GitHub
 - Save users’ todos in a database
 - Show them next time they log in
-- Fall back to LocalStorage if they don’t want to sign in
+
+# Technologies
+
+HTML, CSS, Javascript, jQuery
